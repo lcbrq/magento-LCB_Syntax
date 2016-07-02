@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <LCB_Syntax>
+            <version>0.1.0</version>
+        </LCB_Syntax>
+    </modules>
+    <global>
+        <helpers>
+            <syntax>
+                <class>LCB_Syntax_Helper</class>
+            </syntax>
+        </helpers>
+        <models>
+            <widget>
+                <rewrite>
+                    <template_filter>LCB_Syntax_Model_Template_Filter</template_filter>
+                </rewrite>
+            </widget>
+        </models>
+        <cms>
+            <page>
+                <template_filter>syntax/template_filter</template_filter>
+            </page>
+            <block>
+                <template_filter>syntax/template_filter</template_filter>
+            </block>
+        </cms>
+    </global>
+</config> 
