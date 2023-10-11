@@ -7,7 +7,8 @@
  * @package    LCB_InstantCheckout
  * @author     Silpion Tomasz Gregorczyk <tom@leftcurlybracket.com>
  */
-class LCB_Syntax_Model_Template_Filter extends Mage_Widget_Model_Template_Filter {
+class LCB_Syntax_Model_Template_Filter extends Mage_Widget_Model_Template_Filter
+{
 
     /**
      * General product directives output
@@ -34,7 +35,6 @@ class LCB_Syntax_Model_Template_Filter extends Mage_Widget_Model_Template_Filter
         }
 
         if ($id && $attribute) {
-
             $product = Mage::getModel('catalog/product')->load($id);
             return $product->getData($attribute);
         }
@@ -62,7 +62,6 @@ class LCB_Syntax_Model_Template_Filter extends Mage_Widget_Model_Template_Filter
         };
 
         if ($id) {
-
             $product = Mage::getModel('catalog/product')->load($id);
 
             if (isset($params['type'])) {
@@ -87,4 +86,27 @@ class LCB_Syntax_Model_Template_Filter extends Mage_Widget_Model_Template_Filter
         return '';
     }
 
+    public function translateDirective($construction)
+    {
+        $params = $this->_getIncludeParameters($construction[2]);
+        $text = $params['text'];
+        return Mage::helper('page')->__($text);
+    }
+
+    /**
+     * Directive for revslider shortcode
+     */
+    public function revsliderDirective($construction)
+    {
+        if (Mage::helper('nwdall')->getCfg('general/enabled', 'nwdrevslider_config')) {
+            $params = $this->_getIncludeParameters($construction[2]);
+            $alias = isset($params['alias']) ? $params['alias'] : '';
+            $sliderBlock = Mage::app()->getLayout()->createBlock('nwdrevslider/revslider', 'revslider.' . $alias);
+            $sliderBlock->setData('alias', $alias);
+            $output = $sliderBlock->toHtml();
+        } else {
+            $output = '';
+        }
+        return $output;
+    }
 }

@@ -11,3 +11,5 @@ Add additional syntax directives to your Magento store CMS
 
 {{product id="1" attribute="name"}}
 {{product sku="sample" attribute="manufacturer"}}
+
+{{translate text="Text"}}
